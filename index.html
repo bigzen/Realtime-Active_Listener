@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Realtime Active Listener - Project Page</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      }
+      body {
+        margin: 0;
+        padding: 2rem;
+        max-width: 900px;
+      }
+      h1 {
+        margin-top: 0;
+      }
+      .upload {
+        border: 2px dashed #888;
+        border-radius: 0.75rem;
+        padding: 1rem;
+      }
+      .gallery {
+        margin-top: 1rem;
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      }
+      .item {
+        border: 1px solid #666;
+        border-radius: 0.5rem;
+        padding: 0.5rem;
+      }
+      img,
+      video,
+      audio {
+        width: 100%;
+      }
+      pre {
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Realtime Active Listener</h1>
+      <p>Project page for previewing generated artifacts.</p>
+
+      <section class="upload">
+        <label for="files"><strong>Select generated files:</strong></label>
+        <input id="files" type="file" multiple />
+      </section>
+
+      <section id="gallery" class="gallery" aria-live="polite"></section>
+    </main>
+
+    <script>
+      const input = document.getElementById('files');
+      const gallery = document.getElementById('gallery');
+
+      function itemWrapper(file) {
+        const wrapper = document.createElement('article');
+        wrapper.className = 'item';
+        const title = document.createElement('h2');
+        title.style.fontSize = '1rem';
+        title.style.margin = '0 0 0.5rem 0';
+        title.textContent = file.name;
+        wrapper.appendChild(title);
+        return wrapper;
+      }
+
+      function previewFile(file) {
+        const wrapper = itemWrapper(file);
+
+        if (file.type.startsWith('image/')) {
+          const img = document.createElement('img');
+          img.alt = file.name;
+          img.src = URL.createObjectURL(file);
+          wrapper.appendChild(img);
+        } else if (file.type.startsWith('video/')) {
+          const video = document.createElement('video');
+          video.controls = true;
+          video.src = URL.createObjectURL(file);
+          wrapper.appendChild(video);
+        } else if (file.type.startsWith('audio/')) {
+          const audio = document.createElement('audio');
+          audio.controls = true;
+          audio.src = URL.createObjectURL(file);
+          wrapper.appendChild(audio);
+        } else if (file.type.startsWith('text/')) {
+          const reader = new FileReader();
+          reader.onload = () => {
+            const pre = document.createElement('pre');
+            pre.textContent = String(reader.result || '');
+            wrapper.appendChild(pre);
+          };
+          reader.readAsText(file);
+        } else {
+          const p = document.createElement('p');
+          p.textContent = 'Preview not available for this file type.';
+          wrapper.appendChild(p);
+        }
+
+        gallery.appendChild(wrapper);
+      }
+
+      input.addEventListener('change', () => {
+        gallery.innerHTML = '';
+        Array.from(input.files || []).forEach(previewFile);
+      });
+    </script>
+  </body>
+</html>
