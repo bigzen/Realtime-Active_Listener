@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Realtime Active Listener</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="hero">
+    <div class="container">
+      <p class="kicker">ICMI Submission</p>
+      <h1>Realtime Active Listener</h1>
+      <p class="subtitle">A project page for showcasing method details and video-based demos.</p>
+      <div class="links">
+        <a href="#videos">Videos</a>
+        <a href="#abstract">Abstract</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="abstract" class="card">
+      <h2>Abstract</h2>
+      <p>
+        Realtime Active Listener focuses on generating context-appropriate listener behaviors.
+        This page highlights qualitative examples with playable videos for easy comparison.
+      </p>
+    </section>
+
+    <section id="videos" class="card">
+      <h2>Video Results</h2>
+      <p class="hint">Replace the sample video files with your own clips in <code>assets/videos/</code>.</p>
+      <div class="video-grid">
+        <article>
+          <h3>Input Speaker</h3>
+          <video controls preload="metadata" playsinline>
+            <source src="assets/videos/input-speaker.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </article>
+        <article>
+          <h3>Ground Truth Listener</h3>
+          <video controls preload="metadata" playsinline>
+            <source src="assets/videos/ground-truth-listener.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </article>
+        <article>
+          <h3>Model Output</h3>
+          <video controls preload="metadata" playsinline>
+            <source src="assets/videos/model-output.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© <span id="year"></span> Realtime Active Listener</p>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
