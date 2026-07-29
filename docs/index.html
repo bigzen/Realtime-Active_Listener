@@ -1,116 +1,181 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Realtime Active Listener - Project Page</title>
-    <style>
-      :root {
-        color-scheme: light dark;
-        font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      }
-      body {
-        margin: 0;
-        padding: 2rem;
-        max-width: 900px;
-      }
-      h1 {
-        margin-top: 0;
-      }
-      .upload {
-        border: 2px dashed #888;
-        border-radius: 0.75rem;
-        padding: 1rem;
-      }
-      .gallery {
-        margin-top: 1rem;
-        display: grid;
-        gap: 1rem;
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      }
-      .item {
-        border: 1px solid #666;
-        border-radius: 0.5rem;
-        padding: 0.5rem;
-      }
-      img,
-      video,
-      audio {
-        width: 100%;
-      }
-      pre {
-        white-space: pre-wrap;
-        overflow-wrap: anywhere;
-      }
-    </style>
-  </head>
-  <body>
-    <main>
-      <h1>Realtime Active Listener</h1>
-      <p>Project page for previewing generated artifacts.</p>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Active Listener Live: Real-time Head Response Generation in Virtual Agents during Live Spoken Interaction</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 
-      <section class="upload">
-        <label for="files"><strong>Select generated files:</strong></label>
-        <input id="files" type="file" multiple />
-      </section>
 
-      <section id="gallery" class="gallery" aria-live="polite"></section>
-    </main>
+<body>
 
-    <script>
-      const input = document.getElementById('files');
-      const gallery = document.getElementById('gallery');
+<h1 class="center">Active Listener Live: Real-time Head Response Generation in Virtual Agents during Live Spoken Interaction</h1>
 
-      function itemWrapper(file) {
-        const wrapper = document.createElement('article');
-        wrapper.className = 'item';
-        const title = document.createElement('h2');
-        title.style.fontSize = '1rem';
-        title.style.margin = '0 0 0.5rem 0';
-        title.textContent = file.name;
-        wrapper.appendChild(title);
-        return wrapper;
-      }
+<div style="display: flex; justify-content: center;">
+  <div class="author-block" style="text-align: center;">
+      <span>Bishal Ghosh</span>, 
+      <span>Tongfei Bian</span>, 
+      <span>Emma Li</span> and
+      <span>Tanaya Guha</span>
+      <br>
+      <span>University of Glasgow, UK</span>, 
+      <br>
+      <b><a href="" target="_blank">paper</a></b> &nbsp;&nbsp;&nbsp;
+      <b><a href="https://github.com/bigzen/Realtime-Active_Listener" target="_blank">code</a></b>
+  </div>
+</div>
 
-      function previewFile(file) {
-        const wrapper = itemWrapper(file);
 
-        if (file.type.startsWith('image/')) {
-          const img = document.createElement('img');
-          img.alt = file.name;
-          img.src = URL.createObjectURL(file);
-          wrapper.appendChild(img);
-        } else if (file.type.startsWith('video/')) {
-          const video = document.createElement('video');
-          video.controls = true;
-          video.src = URL.createObjectURL(file);
-          wrapper.appendChild(video);
-        } else if (file.type.startsWith('audio/')) {
-          const audio = document.createElement('audio');
-          audio.controls = true;
-          audio.src = URL.createObjectURL(file);
-          wrapper.appendChild(audio);
-        } else if (file.type.startsWith('text/')) {
-          const reader = new FileReader();
-          reader.onload = () => {
-            const pre = document.createElement('pre');
-            pre.textContent = String(reader.result || '');
-            wrapper.appendChild(pre);
-          };
-          reader.readAsText(file);
-        } else {
-          const p = document.createElement('p');
-          p.textContent = 'Preview not available for this file type.';
-          wrapper.appendChild(p);
-        }
+<div class="video-block center">
+  <img src="assets/images/model.png" alt="Active Listener Live" style="width: 100%; height: auto; display: block;">
+</div>
 
-        gallery.appendChild(wrapper);
-      }
 
-      input.addEventListener('change', () => {
-        gallery.innerHTML = '';
-        Array.from(input.files || []).forEach(previewFile);
-      });
-    </script>
-  </body>
+<h2>Abstract</h2>
+<div class="info-box justify">
+    A key component of dyadic interactions is the contextually-relevant behavioural cues, such as head gestures, that a listener produces in response to an interlocutor`s speech. However, generating such listening behaviour for an embodied Virtual Agent (VA) in real time is challenging. Existing real time head response generators are still rule-based, and the data driven models are not fit for real time use. We propose real-time, listener`s head response generation framework, called the Active Listener, that responds to a human speaker with appropriate head responses during spoken interactions. The framework comprises: (i) an online deep graph-based head pose generator that is completely data-driven and trained without any manual labels, and (ii) design and development of a VA that responds in real time to user`s speech using the generator as its backbone. Along with validating the head response generator using objective metrics, we design and conduct a thorough subjective evaluation of the Active Listener by deploying it in real world user interaction. Our results show that 73% of the users prefer Active Listener over two competing baselines in terms of diversity and context-relevance of the generated head responses.
+</div>
+</section>
+
+
+<section>
+<h2>Video demonstration</h2>
+<div class="video-block">
+  <div class="video-grid2">
+    <div>
+      <h4>Raw Output</h4>
+      <video controls width="500">
+        <source src="assets/videos/demo.mp4"
+                type="video/mp4">
+    </video>
+    </div>
+    <div>
+      <h4>Processed Output</h4>
+    <video controls width="500">
+        <source src="assets/videos/demo.mp4"
+                type="video/mp4">
+    </video>
+    </div>
+  </div>
+</div>
+</section>
+
+
+
+<section>
+
+<h2>Baseline comparison</h2>
+<div class="video-block">
+    <h3>Positive Prompt</h3>
+    <div>
+          <audio controls width="500">
+            <source src="assets/audio/example1.wav" type="audio/wav">
+          </audio>
+        </div>
+    <div class="video-grid">
+        
+        <div>
+            <h4>Proposed model</h4>
+            <video controls width="300">
+                <source src="assets/videos/example4.mp4" 
+                        type="video/mp4">
+            </video>
+            </div>
+            <div>
+            <h4>MaAI baseline</h4>
+            <video controls width="300">
+                <source src="assets/videos/example2.mp4" 
+                        type="video/mp4">
+            </video>
+            </div>
+            <div>
+            <h4>PRG baseline</h4>
+            <video controls width="300">
+                <source src="assets/videos/example3.mp4" 
+                        type="video/mp4">
+            </video>
+        </div>
+    </div>
+</div>
+
+<div class="video-block">
+    <h3>Neutral Prompt</h3>
+    <div>
+          <audio controls width="500">
+            <source src="assets/audio/example2.wav" type="audio/wav">
+          </audio>
+        </div>
+    <div class="video-grid">
+        <div>
+            <h4>Proposed model</h4>
+            <video controls width="300">
+                <source src="assets/videos/example4.mp4" 
+                        type="video/mp4">
+            </video>
+            </div>
+            <div>
+            <h4>MaAI baseline</h4>
+            <video controls width="300">
+                <source src="assets/videos/example2.mp4" 
+                        type="video/mp4">
+            </video>
+            </div>
+            <div>
+            <h4>PRG baseline</h4>
+            <video controls width="300">
+                <source src="assets/videos/example3.mp4" 
+                        type="video/mp4">
+            </video>
+        </div>
+    </div>
+</div>
+
+<div class="video-block">
+    <h3>Negative Prompt</h3>
+    <div>
+          <audio controls width="500">
+            <source src="assets/audio/example3.wav" type="audio/wav">
+          </audio>
+        </div>
+    <div class="video-grid">
+        <div>
+            <h4>Proposed model</h4>
+            <video controls width="300">
+                <source src="assets/videos/example4.mp4" 
+                        type="video/mp4">
+            </video>
+            </div>
+            <div>
+            <h4>MaAI baseline</h4>
+            <video controls width="300">
+                <source src="assets/videos/example2.mp4" 
+                        type="video/mp4">
+            </video>
+            </div>
+            <div>
+            <h4>PRG baseline</h4>
+            <video controls width="300">
+                <source src="assets/videos/example3.mp4" 
+                        type="video/mp4">
+            </video>
+        </div>
+    </div>
+</div>
+
+</section>
+
+
+<section>
+<h2>Citation</h2>
+
+<pre>
+@article{yourpaper,
+ title={Your Paper Title},
+ author={Your Name}
+}
+</pre>
+
+</section>
+
+
+</body>
 </html>
